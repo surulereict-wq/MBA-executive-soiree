@@ -308,6 +308,50 @@
     opacity:0.75;
   }
 
+  /* ---------- tier stack (3 tiers) ---------- */
+  .tier-stack{ display:flex; flex-direction:column; gap:18px; }
+  .ticket-card.compact{ padding:26px 24px; text-align:left; }
+  .ticket-card.compact .tier-top{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px;
+  }
+  .ticket-card.compact .tier-name{ margin-bottom:0; }
+  .ticket-card.compact .tier-price{ font-size:24px; margin-bottom:0; text-align:right; }
+  .ticket-card.compact .tier-title{ font-size:20px; margin-bottom:12px; }
+  .ticket-card.compact .tier-includes{ margin:0 0 4px; display:block; }
+  .ticket-card.compact .tier-includes li{ font-size:13px; padding:5px 0 5px 20px; }
+  .ticket-card.featured{
+    border-color:var(--gold-bright);
+    background:linear-gradient(155deg, rgba(26,90,67,0.55), rgba(8,11,9,0.5));
+    box-shadow:0 14px 34px -14px rgba(0,0,0,0.6);
+  }
+  .tier-pill{
+    display:inline-block; font-size:10px; letter-spacing:0.18em; color:#141008;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    padding:4px 10px; border-radius:20px; margin-bottom:12px;
+  }
+
+  /* ---------- form select ---------- */
+  .field select{
+    width:100%;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line);
+    color:var(--cream);
+    font-family:'Jost', sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    border-radius:1px;
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23c9a24a'%3E%3Cpath d='M5.5 7.5l4.5 5 4.5-5z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+  }
+  .field select:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+  }
+  .field select option{ background:#12160f; color:var(--cream); }
+
   /* ---------- form ---------- */
   .form-card{
     border:1px solid var(--line);
@@ -434,24 +478,41 @@
       <p class="section-eyebrow">TICKETS</p>
       <h3 class="section-title">Reserve Your Seat</h3>
 
-      <div class="ticket-card">
-        <p class="tier-name">GENERAL ADMISSION</p>
-        <p class="tier-title">Soirée Pass</p>
-        <p class="tier-price">₦ — <small>Price to be confirmed</small></p>
+      <div class="tier-stack">
+        <div class="ticket-card compact">
+          <div class="tier-top">
+            <p class="tier-name">YEAR 1</p>
+            <p class="tier-price">₦35,000</p>
+          </div>
+          <p class="tier-title">Soirée Pass — Year 1</p>
+          <ul class="tier-includes">
+            <li>Seat &amp; dinner</li>
+            <li>Access to entertainment programme</li>
+            <li>Event souvenir</li>
+            <li>Same price for Full-Time and Part-Time</li>
+          </ul>
+        </div>
 
-        <ul class="tier-includes">
-          <li>Entry for one guest</li>
-          <li>Welcome cocktail &amp; dinner</li>
-          <li>Evening of live entertainment</li>
-          <li>Access to the networking lounge</li>
-        </ul>
-
-        <p class="fine-print">Ticket sales open once venue &amp; pricing are confirmed. Join the list below to be notified first.</p>
+        <div class="ticket-card compact">
+          <div class="tier-top">
+            <p class="tier-name">YEAR 2</p>
+            <p class="tier-price">₦40,000</p>
+          </div>
+          <p class="tier-title">Soirée Pass — Year 2</p>
+          <ul class="tier-includes">
+            <li>Seat &amp; dinner</li>
+            <li>Access to entertainment programme</li>
+            <li>Event souvenir</li>
+            <li>Same price for Full-Time and Part-Time</li>
+          </ul>
+        </div>
       </div>
+
+      <p class="fine-print">Price is set by year, not by seating tier. Part-Time students select a stream at checkout for grouping only — it does not change the price. Sales open once venue &amp; date are locked in; join the list below to reserve your spot and be notified first. Payment will be processed securely via Paystack.</p>
     </section>
 
     <section class="section" id="rsvp">
-      <p class="section-eyebrow">STAY IN THE LOOP</p>
+      <p class="section-eyebrow">RESERVE YOUR SPOT</p>
       <h3 class="section-title">Notify Me</h3>
 
       <form class="form-card" id="rsvp-form">
@@ -467,7 +528,33 @@
           <label for="phone">Phone number</label>
           <input type="tel" id="phone" name="phone" placeholder="080X XXX XXXX" required>
         </div>
+        <div class="field">
+          <label for="year">Year</label>
+          <select id="year" name="year" required>
+            <option value="" disabled selected>Choose your year</option>
+            <option value="year-1">Year 1 — ₦35,000</option>
+            <option value="year-2">Year 2 — ₦40,000</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="programme">Programme</label>
+          <select id="programme" name="programme" required>
+            <option value="" disabled selected>Full-Time or Part-Time</option>
+            <option value="full-time">Full-Time</option>
+            <option value="part-time">Part-Time</option>
+          </select>
+        </div>
+        <div class="field" id="stream-field" style="display:none;">
+          <label for="stream">Stream</label>
+          <select id="stream" name="stream">
+            <option value="" disabled selected>Choose your stream</option>
+            <option value="stream-1">Stream 1</option>
+            <option value="stream-2">Stream 2</option>
+            <option value="stream-3">Stream 3</option>
+          </select>
+        </div>
         <button type="submit" class="btn">JOIN THE WAITLIST</button>
+        <p class="fine-print" style="text-align:center;">Used to send your course rep an accurate headcount once tickets open.</p>
         <p id="form-status" role="status"></p>
       </form>
     </section>
@@ -482,21 +569,47 @@
 </div>
 
 <script>
-  // Placeholder submit handler — swap for a real backend endpoint
-  // (Paystack/Supabase, following the Water Splash ticketing pattern)
-  // once the client confirms venue, time and ticket pricing.
+  // Show the Stream field only for Part-Time students — it's used for
+  // grouping/reporting only and never changes the price.
+  const programmeSelect = document.getElementById('programme');
+  const streamField = document.getElementById('stream-field');
+  const streamSelect = document.getElementById('stream');
+  programmeSelect.addEventListener('change', function () {
+    const isPartTime = this.value === 'part-time';
+    streamField.style.display = isPartTime ? 'block' : 'none';
+    streamSelect.required = isPartTime;
+    if (!isPartTime) streamSelect.value = '';
+  });
+
+  // Placeholder submit handler — swap for a real backend endpoint once
+  // venue, date and final pricing are confirmed. Intended flow:
+  //   1. This form's payload (name, email, phone, year, programme, stream)
+  //      posts to the ticketing backend (Render) or a Make.com webhook.
+  //   2. That triggers a Paystack payment link scoped to the chosen year's
+  //      price (Year 1 = ₦35,000, Year 2 = ₦40,000 — same for FT/PT).
+  //   3. On successful payment, Paystack's webhook writes the row to the
+  //      master Google Sheet, tagged with year + programme + stream so
+  //      the right course rep's sheet picks it up automatically.
   document.getElementById('rsvp-form').addEventListener('submit', function (e) {
     e.preventDefault();
     const status = document.getElementById('form-status');
     const name = document.getElementById('fullname').value.trim();
+    const year = document.getElementById('year').value;
+    const programme = programmeSelect.value;
+    const stream = streamSelect.value;
 
-    // TODO: replace with a fetch() call to the ticketing backend
-    // once it exists, e.g.:
-    // fetch('https://<backend>.onrender.com/waitlist', { method:'POST', body: JSON.stringify({...}) })
+    // TODO: replace with a fetch() call to the ticketing backend once it
+    // exists, e.g.:
+    // fetch('https://<backend>.onrender.com/waitlist', {
+    //   method:'POST',
+    //   body: JSON.stringify({ name, email, phone, year, programme, stream })
+    // })
 
-    status.textContent = `Thanks, ${name.split(' ')[0]} — you're on the list. We'll email you the moment tickets open.`;
+    const yearLabel = { 'year-1': 'Year 1', 'year-2': 'Year 2' }[year] || 'your year';
+    status.textContent = `Thanks, ${name.split(' ')[0]} — you're on the list for ${yearLabel}. We'll email you the moment tickets open.`;
     status.classList.add('ok');
     this.reset();
+    streamField.style.display = 'none';
   });
 </script>
 
